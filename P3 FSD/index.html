@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MARINOTEX — AMET Hackathon 2026</title>
+  <meta name="description" content="MARINOTEX — AMET Hackathon 2026. One-day in-person inter-college hackathon at AMET University, Chennai." />
+  <meta name="keywords" content="MARINOTEX, AMET Hackathon, hackathon, AMET University, Chennai, maritime, students" />
+  <meta name="author" content="AMET CEII & AMET IIC" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#021224" />
+
+  <!-- canonical (replace with your real site URL) -->
+  <link rel="canonical" href="https://example.com/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="MARINOTEX — AMET Hackathon 2026" />
+  <meta property="og:description" content="One-day national level hackathon for college students at AMET University, Chennai." />
+  <meta property="og:type" content="event" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:image" content="https://example.com/assets/marinotex-logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MARINOTEX — AMET Hackathon 2026" />
+  <meta name="twitter:description" content="One-day national level hackathon for college students at AMET University, Chennai." />
+  <meta name="twitter:image" content="https://example.com/assets/marinotex-logo.png" />
+
+  <link rel="icon" href="assets/marinotex-logo.png" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/marinotex-logo.png" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Structured Data (Event + Organization) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Event",
+        "name": "MARINOTEX — AMET Hackathon 2026",
+        "startDate": "2026-01-31T09:00:00+05:30",
+        "endDate": "2026-01-31T20:00:00+05:30",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "description": "One-day national level hackathon at AMET University, Chennai.",
+        "location": {
+          "@type": "Place",
+          "name": "AMET University",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "#135, East Coast Road, Kanathur",
+            "addressLocality": "Chennai",
+            "addressRegion": "Tamil Nadu",
+            "postalCode": "603112",
+            "addressCountry": "IN"
+          }
+        },
+        "image": ["https://example.com/assets/marinotex-logo.png"],
+        "organizer": {
+          "@type": "Organization",
+          "name": "AMET CEII & AMET IIC",
+          "url": "https://example.com/"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "MARINOTEX",
+        "url": "https://example.com/",
+        "logo": "https://example.com/assets/marinotex-logo.png"
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    /* Minimal skip link styling (accessibility) */
+    .skip-link{position:absolute;left:-999px;top:auto;width:1px;height:1px;overflow:hidden}
+    .skip-link:focus{left:12px;top:12px;width:auto;height:auto;padding:8px 12px;background:rgba(0,0,0,0.85);color:#fff;z-index:1500;border-radius:6px}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <!-- SITE LOADER: appears until window 'load' -->
+  <div id="siteLoader" class="site-loader" role="status" aria-live="polite" aria-label="Loading MARINOTEX">
+    <div class="site-loader-inner" aria-hidden="false">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 3000 800" class="marinotex-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MARINOTEX">
+          <defs>
+            <linearGradient id="marinotexGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ad1f8d"/>
+              <stop offset="100%" stop-color="#7a2a90"/>
+            </linearGradient>
+          </defs>
+          <text x="1500" y="180" text-anchor="middle" class="subtitle">National Level Hackathon</text>
+          <text x="1500" y="520" text-anchor="middle" class="title">MARINOTEX</text>
+        </svg>
+      </div>
+
+      <div class="loader-title"><span style="font-weight: lighter;">By</span> ACEII</div>
+
+      <div class="loader-spinner" aria-hidden="true">
+        <svg viewBox="0 0 50 50" class="spinner-svg" width="48" height="48" aria-hidden="true" focusable="false">
+          <circle class="spinner-bg" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+          <path class="spinner-arc" d="M45 25a20 20 0 0 1-20 20" fill="none" stroke-width="4" stroke-linecap="round"></path>
+        </svg>
+      </div>
+
+      <div class="loader-progress" aria-hidden="true">
+        <div class="loader-progress-bar" id="loaderProgressBar" style="width:0%"></div>
+      </div>
+
+      <div class="loader-msg" id="loaderMsg">Loading — please wait...</div>
+    </div>
+  </div>
+
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="#home" aria-label="Go to home">
+        <!-- inline SVG logo kept (design preserved) -->
+        <svg viewBox="0 0 3000 800" class="marinotex-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MARINOTEX logo">
+          <defs>
+            <linearGradient id="marinotexGradientHeader" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ad1f8d"/>
+              <stop offset="100%" stop-color="#7a2a90"/>
+            </linearGradient>
+          </defs>
+          <text x="1500" y="180" text-anchor="middle" class="subtitle">National Level Hackathon</text>
+          <text x="1500" y="520" text-anchor="middle" class="title">MARINOTEX</text>
+        </svg>
+      </a>
+
+      <nav class="primary-nav" aria-label="Main navigation">
+        <button id="navToggle" class="nav-toggle" aria-expanded="false" aria-controls="navList" aria-label="Open menu">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <ul id="navList" class="nav-list" role="menubar">
+          <li role="none"><a role="menuitem" href="#home">Home</a></li>
+          <li role="none"><a role="menuitem" href="#about">About</a></li>
+          <li role="none"><a role="menuitem" href="#schedule">Schedule</a></li>
+          <li role="none"><a role="menuitem" href="#benefits">Benefits</a></li>
+          <li role="none"><a role="menuitem" href="#prizes">Prizes</a></li>
+          <li role="none"><a role="menuitem" href="#faq">FAQ</a></li>
+          <li role="none"><a role="menuitem" href="#Venue">Venue</a></li>
+          <li role="none"><a class="btn-primary" href="#register">Register</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <!-- HERO -->
+    <section id="home" class="hero section">
+      <div class="container hero-grid">
+        <div class="hero-left reveal">
+          <h1 class="hero-title gradient-title">MARINOTEX</h1>
+          <p class="hero-subtitle">National Level Hackathon — AMET University, Chennai</p>
+          <p class="hero-lead">One-day, in-person hackathon for college students — innovate for maritime challenges, prototype and demo.</p>
+
+          <div class="hero-meta">
+            <div class="meta-item"><span class="meta-key">Date</span><span id="eventDate">31 January 2026</span></div>
+            <div class="meta-item"><span class="meta-key">Venue</span><span>AMET University, Kanathur, ECR, Chennai</span></div>
+          </div>
+
+          <div class="hero-actions">
+            <button class="btn-cta" id="jumpRegister" style="border:none">Register Now</button>
+            <a class="btn-ghost" href="#schedule">View Schedule</a>
+          </div>
+
+          <div class="hero-facts">
+            <div><strong>Registration Deadline:</strong> <span class="strong">29 January 2026</span></div>
+            <div style="margin-bottom:20px;"><strong>Prizes total:</strong> ₹15,000 (cash)</div>
+          </div>
+        </div>
+
+        <aside class="hero-right reveal" aria-hidden="false">
+          <div class="countdown" role="timer" aria-live="polite" aria-atomic="true">
+            <div class="countdown-title">Time until the event</div>
+            <div class="countdown-grid" id="countdown">
+              <div class="cd-block"><div class="cd-value" id="cd-days">00</div><div class="cd-label">Days</div></div>
+              <div class="cd-block"><div class="cd-value" id="cd-hours">00</div><div class="cd-label">Hours</div></div>
+              <div class="cd-block"><div class="cd-value" id="cd-mins">00</div><div class="cd-label">Minutes</div></div>
+              <div class="cd-block"><div class="cd-value" id="cd-secs">00</div><div class="cd-label">Seconds</div></div>
+            </div>
+
+            <div class="card-note">Seats limited — register early</div>
+            <div class="quick-links">
+              <a class="btn-ghost" href="#register">Register</a>
+              <a class="btn-outline" href="#contact">Contact</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- sea waves -->
+      <div class="sea-waves" aria-hidden="true">
+        <div class="wave-layer layer-back" aria-hidden="true">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 24 C150 60 300 0 600 24 C900 48 1050 12 1200 24 L1200 120 L0 120 Z" fill="#003a63"/></svg>
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 24 C150 60 300 0 600 24 C900 48 1050 12 1200 24 L1200 120 L0 120 Z" fill="#003a63"/></svg>
+        </div>
+        <div class="wave-layer layer-front" aria-hidden="true">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 32 C150 68 300 8 600 32 C900 56 1050 16 1200 32 L1200 120 L0 120 Z" fill="#004e92"/></svg>
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0 32 C150 68 300 8 600 32 C900 56 1050 16 1200 32 L1200 120 L0 120 Z" fill="#004e92"/></svg>
+        </div>
+
+        <div class="ship-boat" aria-hidden="true" role="presentation">
+          <svg viewBox="0 0 64 64" class="boat-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+            <g fill="none" fill-rule="evenodd">
+              <path d="M4 40c18 6 38 6 56 0l-6 10H10z" fill="#022c49"/>
+              <rect x="26" y="16" width="12" height="12" rx="2" fill="#00b8ff"/>
+              <path d="M40 28l6-4 2-2-8-2z" fill="#fff" opacity="0.12"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" style="margin-top: 100px;" class="section reveal">
+      <div class="container section-inner">
+        <h2>About</h2>
+        <p class="section-sub">Innovation, prototyping and collaboration in one focused day.</p>
+        <div class="two-col">
+          <div>
+            <p class="muted">MARINOTEX invites students to tackle maritime problems — blue economy, autonomous systems, sustainability, and more. Mentors from industry and academia will help teams validate and refine ideas quickly.</p>
+            <br>
+            <p class="muted strong">Open to UG students across colleges. AMET students: discounted fee available.</p>
+          </div>
+          <div>
+            <ul class="bullets">
+              <li>Teams up to 4 members</li>
+              <li>Bring laptop, charger, and valid college ID</li>
+              <li>Original work required — plagiarism leads to disqualification</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule" class="section reveal">
+      <div class="container section-inner">
+        <div class="section-header-compact">
+          <h2>Schedule</h2>
+          <p class="section-sub">Clear agenda for the one-day event. Times are indicative — final updates at briefing.</p>
+        </div>
+
+        <div class="schedule-grid" role="list" aria-label="Event schedule">
+          <div class="schedule-time">08:00</div>
+          <div class="schedule-card" role="listitem">
+            <div class="schedule-card-head">
+              <h3>Registration & Reporting</h3>
+              <span class="muted">Team check-in & welcome kit</span>
+            </div>
+            <p class="muted">Arrival, verification, badge & kit distribution.</p>
+          </div>
+
+          <div class="schedule-time">09:00</div>
+          <div class="schedule-card" role="listitem">
+            <div class="schedule-card-head">
+              <h3>Inauguration & Briefing</h3>
+              <span class="muted">Event overview and rules</span>
+            </div>
+            <p class="muted">Intro, judging criteria, mentors introduction and Q&A.</p>
+          </div>
+
+          <div class="schedule-time">09:30</div>
+          <div class="schedule-card" role="listitem">
+            <div class="schedule-card-head">
+              <h3>Hacking Begins</h3>
+              <span class="muted">Teams start building</span>
+            </div>
+            <p class="muted">Mentorship available at designated tables.</p>
+          </div>
+
+          <div class="schedule-time">13:00</div>
+          <div class="schedule-card" role="listitem">
+            <div class="schedule-card-head">
+              <h3>Lunch Break</h3>
+              <span class="muted">Meals & networking</span>
+            </div>
+            <p class="muted">Lunch provided to all registered participants.</p>
+          </div>
+
+          <div class="schedule-time">16:30</div>
+          <div class="schedule-card" role="listitem">
+            <div class="schedule-card-head">
+              <h3>Project Submission</h3>
+              <span class="muted">Submit demo links & summary</span>
+            </div>
+            <p class="muted">Follow submission template shared in briefing.</p>
+          </div>
+
+          <div class="schedule-time">17:00</div>
+          <div class="schedule-card" role="listitem">
+            <div class="schedule-card-head">
+              <h3>Demos & Judging</h3>
+              <span class="muted">Short team demos</span>
+            </div>
+            <p class="muted">Teams present for 3–5 minutes followed by Q&A.</p>
+          </div>
+
+          <div class="schedule-time">19:00</div>
+          <div class="schedule-card" role="listitem">
+            <div class="schedule-card-head">
+              <h3>Prize Distribution & Closing</h3>
+              <span class="muted">Awards & photos</span>
+            </div>
+            <p class="muted">Winners announced and group photos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BENEFITS -->
+    <section id="benefits" class="section reveal">
+      <div class="container section-inner">
+        <h2>Benefits for Participants</h2>
+        <p class="section-sub">What every participant receives at MARINOTEX.</p>
+
+        <div class="benefits-grid">
+          <article class="benefit-card reveal" aria-labelledby="b1">
+            <div class="benefit-illustration" aria-hidden="true">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><path d="M5 12h14" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3 id="b1">Lunch & Refreshments</h3>
+            <p class="muted">Meals and light refreshments provided for all participants.</p>
+          </article>
+
+          <article class="benefit-card reveal" aria-labelledby="b2">
+            <div class="benefit-illustration" aria-hidden="true">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3 id="b2">Participation Certificate</h3>
+            <p class="muted">Official certificate for every participant after the event.</p>
+          </article>
+
+          <article class="benefit-card reveal" aria-labelledby="b3">
+            <div class="benefit-illustration" aria-hidden="true">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 8h18" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><path d="M7 12h10" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <h3 id="b3">Mentorship & Networking</h3>
+            <p class="muted">Connect with mentors and judges to receive feedback and guidance.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIZES -->
+    <section id="prizes" class="section reveal">
+      <div class="container section-inner">
+        <h2>Prizes</h2>
+        <p class="section-sub">Cash prizes and special awards.</p>
+
+        <div class="prizes-grid" role="list">
+          <div class="prize-card rank-1" role="listitem" aria-labelledby="prize1-title">
+            <div class="prize-badge" aria-hidden="true">1</div>
+            <h3 id="prize1-title">First Prize</h3>
+            <p class="muted">Cash award — placeholder (edit amount)</p>
+            <p class="prize-meta muted">Winner: trophy, certificate, and mentorship</p>
+          </div>
+
+          <div class="prize-card rank-2" role="listitem" aria-labelledby="prize2-title">
+            <div class="prize-badge" aria-hidden="true">2</div>
+            <h3 id="prize2-title">Second Prize</h3>
+            <p class="muted">Cash award — placeholder (edit amount)</p>
+            <p class="prize-meta muted">Runner-up recognition and certificate</p>
+          </div>
+
+          <div class="prize-card rank-3" role="listitem" aria-labelledby="prize3-title">
+            <div class="prize-badge" aria-hidden="true">3</div>
+            <h3 id="prize3-title">Third Prize</h3>
+            <p class="muted">Cash award — placeholder (edit amount)</p>
+            <p class="prize-meta muted">Third place recognition and certificate</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section reveal">
+      <div class="container section-inner">
+        <h2>FAQ</h2>
+        <p class="section-sub">Common questions answered.</p>
+        <div class="accordion" id="faqList">
+          <div class="accordion-item">
+            <button class="accordion-button" aria-expanded="false">Who can participate?<span class="acc-symbol" aria-hidden="true">+</span></button>
+            <div class="accordion-panel" hidden>Any current college student may participate. Team or solo entries welcome.</div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-button" aria-expanded="false">Is prior experience required?<span class="acc-symbol" aria-hidden="true">+</span></button>
+            <div class="accordion-panel" hidden>No — mentors will be available to help teams.</div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-button" aria-expanded="false">What should I bring?<span class="acc-symbol" aria-hidden="true">+</span></button>
+            <div class="accordion-panel" hidden>Bring a laptop, charger, power adapter and valid college ID.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP / VENUE -->
+    <section id="Venue" class="venue-section">
+      <div class="container">
+        <h2 class="venue-title">Venue</h2>
+
+        <div class="venue-content-wrapper">
+          <div class="venue-details">
+            <h3 class="venue-name">AMET University</h3>
+
+            <p class="venue-address">
+              #135, East Coast Road,<br>
+              Kanathur, Chennai - 603112<br>
+              Tamil Nadu, India
+            </p>
+
+            <div class="venue-meta">
+              <p><strong>Date:</strong> 31 January 2026 <span class="divider">|</span> <strong>Time:</strong> 9:00 AM onwards</p>
+              <p><strong>Contact:</strong> Mr. Velavan V | +91 96296 95776</p>
+              <p style="margin-top: 5px;"><strong>Email:</strong> office@ametuniv.ac.in</p>
+            </div>
+
+            <button id="openMapBtn" class="btn-primary-large" style="width:270px;margin-top:15px;">
+              Open in Google Maps
+            </button>
+          </div>
+
+          <div class="venue-map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.664726588828!2d80.24075731482087!3d12.864893990926066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525b7b00000001%3A0x6b0b3b3b3b3b3b3b!2sAMET%20University!5e0!3m2!1sen!2sin!4v1625555555555!5m2!1sen!2sin"
+              width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTER CTA -->
+    <section id="register" class="registration-cta-section">
+      <div class="container">
+        <div class="cta-wrapper">
+          <div class="cta-content">
+            <h2 class="cta-title">Ready to Participate?</h2>
+            <p class="cta-description">
+              Join the National Level Hackathon <strong>MARINOTEX 2026</strong>.
+              Please complete your team registration via the official Google Form.
+            </p>
+
+            <div class="cta-info-bits">
+              <span><i class="bi bi-tags"></i> <strong>Fee:</strong> Rs. 250 (General) / Rs. 150 (AMET)</span>
+              <span><i class="bi bi-clock"></i> <strong>Deadline:</strong> 29.01.2026</span>
+            </div>
+
+            <button id="openOfficialForm" class="btn-primary-large">
+              Open Official Registration Form <i class="bi bi-box-arrow-up-right" style="margin-left:8px"></i>
+            </button>
+          </div>
+
+          <div class="cta-visual">
+            <div class="icon-box">
+              <i class="bi bi-file-earmark-richtext"></i>
+              <p>Secure Google Form</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sponsors marquee (transparent background) -->
+    <section class="sponsors-section" aria-label="Sponsors">
+      <div class="container">
+        <div class="sponsors-inner">
+          <h3 class="sponsors-title">Sponsored by</h3>
+
+          <div class="sponsor-marquee" id="sponsorMarquee" aria-hidden="false">
+            <div class="track-wrap" role="list">
+              <div class="sponsor-track" aria-hidden="true">
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor1.png" alt="Sponsor 1"></div>
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor2.png" alt="Sponsor 2"></div>
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor3.png" alt="Sponsor 3"></div>
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor4.png" alt="Sponsor 4"></div>
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor5.png" alt="Sponsor 5"></div>
+              </div>
+              <div class="sponsor-track" aria-hidden="true">
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor1.png" alt="Sponsor 1"></div>
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor2.png" alt="Sponsor 2"></div>
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor3.png" alt="Sponsor 3"></div>
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor4.png" alt="Sponsor 4"></div>
+                <div class="sponsor-item" role="listitem"><img src="assets/sponsor5.png" alt="Sponsor 5"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" style="background-color:#021224;">
+    <div class="footer-wave-wrap" aria-hidden="true">
+      <svg class="wave-footer" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0 60 C 150 20 300 100 720 60 C 1140 20 990 100 1440 60 L1440 120 L0 120 Z" fill="#001A33"/></svg>
+      <div class="footer-ship" aria-hidden="true" role="presentation">
+        <svg viewBox="0 0 64 64" class="boat-svg-small" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <g fill="none" fill-rule="evenodd">
+            <path d="M4 36c14 4 28 4 42 0l-5 7H9z" fill="#022c49"/>
+            <rect x="22" y="12" width="10" height="10" rx="2" fill="#00b8ff"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="container footer-inner">
+      <div class="footer-columns">
+        <div>
+          <p class="brand-footer"><strong>MARINOTEX</strong> — AMET Hackathon 2026</p>
+          <p class="muted">One-day inter-college hackathon focused on maritime & allied technology.</p>
+        </div>
+
+        <div>
+          <p><strong>Contact</strong></p>
+          <p class="muted">Email: <a href="mailto:organizer@example.com">organizer@example.com</a></p>
+          <p class="muted">Phone: <a href="tel:+919629855776">+91 96298 55776</a>, <a href="tel:+917397630093">+91 73976 30093</a></p>
+        </div>
+
+        <div>
+          <p><strong>Follow</strong></p>
+          <div class="social-inline">
+            <a class="social-link" href="#" aria-label="Instagram" target="_blank" rel="noopener">Instagram</a>
+            <a class="social-link" href="#" aria-label="Facebook" target="_blank" rel="noopener">Facebook</a>
+            <a class="social-link" href="#" aria-label="YouTube" target="_blank" rel="noopener">YouTube</a>
+            <a class="social-link" href="#" aria-label="LinkedIn" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="muted">© 2026 MARINOTEX — AMET University. All rights reserved.</p>
+        <p class="muted">This site was created by <a href="https://www.linkedin.com/in/yuvarajfsd/" target="_blank">Yuvaraj FSD</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="whatsapp-widget" id="whatsappWidget">
+    <button id="whatsappToggle" class="whatsapp-toggle" aria-expanded="false" aria-controls="whatsappMenu" aria-haspopup="menu" aria-label="Open WhatsApp groups">
+      <i class="bi bi-whatsapp"></i>
+    </button>
+
+    <div class="whatsapp-menu" id="whatsappMenu" role="menu" aria-hidden="true">
+      <div class="whatsapp-head">
+        <strong>Join WhatsApp Groups</strong>
+        <button class="whatsapp-close" id="whatsappClose" aria-label="Close WhatsApp menu">×</button>
+      </div>
+
+      <ul class="whatsapp-list" role="none">
+        <li role="none">
+          <a role="menuitem" href="https://chat.whatsapp.com/REPLACE_WITH_INVITE1" target="_blank" rel="noopener" class="wh-link">
+            General Updates
+            <span class="wh-note">Announcements & event updates</span>
+          </a>
+        </li>
+        <li role="none">
+          <a role="menuitem" href="https://chat.whatsapp.com/REPLACE_WITH_INVITE2" target="_blank" rel="noopener" class="wh-link">
+            Mentors & Help
+            <span class="wh-note">Ask mentors & get guidance</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="wh-footer">
+        <button id="whatsappCloseBottom" class="btn-outline" aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

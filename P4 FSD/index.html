@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DOM Craft — JavaScript DOM Manipulation Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── HEADER ─────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-icon">&#9670;</span>
+      <span class="logo-text">DOM<span class="accent">Craft</span></span>
+    </div>
+    <nav class="nav">
+      <a href="#content-lab">Content</a>
+      <a href="#style-lab">Styles</a>
+      <a href="#visibility-lab">Visibility</a>
+      <a href="#event-lab">Events</a>
+    </nav>
+    <button id="themeToggle" class="theme-btn" title="Toggle Theme">🌙 Dark</button>
+  </header>
+
+  <!-- ── HERO ───────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="badge">JavaScript &amp; DOM Manipulation</div>
+      <h1 class="hero-title">
+        Interact. Observe.<br /><span class="gradient-text">Understand the DOM.</span>
+      </h1>
+      <p class="hero-sub">
+        An interactive lab showcasing how JavaScript manipulates <strong>content</strong>,
+        <strong>styles</strong>, and <strong>visibility</strong> of DOM elements in real time.
+      </p>
+      <div class="hero-cta">
+        <a href="#content-lab" class="btn btn-primary">Explore Labs ↓</a>
+        <a href="#event-lab" class="btn btn-ghost">Live Events Demo</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="code-card" id="heroTypewriter">
+        <div class="code-top-bar"><span></span><span></span><span></span></div>
+        <pre class="code-body"><code id="typewriterCode"></code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SECTION 1 · CONTENT MANIPULATION ──────────────── -->
+  <section class="lab-section" id="content-lab">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2>Content Manipulation</h2>
+      <p>Change text, HTML, and input values dynamically with JavaScript.</p>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- textContent / innerHTML -->
+      <div class="lab-card">
+        <div class="lab-card-header">
+          <span class="lab-tag">textContent &amp; innerHTML</span>
+        </div>
+        <div class="lab-card-body">
+          <div class="demo-output" id="textOutput">
+            <h3>Hello, World!</h3>
+            <p>Click a button below to change this content.</p>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-sm" onclick="changeText()">Change Text</button>
+            <button class="btn btn-sm btn-accent" onclick="changeHTML()">Inject HTML</button>
+            <button class="btn btn-sm btn-ghost" onclick="resetText()">Reset</button>
+          </div>
+          <div class="code-snippet">
+            <code id="textSnippet">document.getElementById('textOutput').textContent = '...';</code>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Input Mirror -->
+      <div class="lab-card">
+        <div class="lab-card-header">
+          <span class="lab-tag">Live Input Mirror</span>
+        </div>
+        <div class="lab-card-body">
+          <label class="input-label">Type something:</label>
+          <input
+            type="text"
+            id="mirrorInput"
+            class="lab-input"
+            placeholder="Start typing…"
+            oninput="mirrorText(this.value)"
+          />
+          <div class="mirror-output" id="mirrorOutput">Your text will appear here</div>
+          <div class="char-counter" id="charCounter">0 characters</div>
+          <div class="code-snippet"><code>element.textContent = input.value;</code></div>
+        </div>
+      </div>
+
+      <!-- Counter -->
+      <div class="lab-card">
+        <div class="lab-card-header">
+          <span class="lab-tag">Counter with DOM</span>
+        </div>
+        <div class="lab-card-body">
+          <div class="counter-display" id="counterDisplay">0</div>
+          <div class="btn-group center">
+            <button class="btn btn-sm btn-danger" onclick="counterAction(-1)">−</button>
+            <button class="btn btn-sm btn-ghost" onclick="counterAction(0)">Reset</button>
+            <button class="btn btn-sm btn-success" onclick="counterAction(1)">＋</button>
+          </div>
+          <div class="code-snippet"><code>element.textContent = ++count;</code></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── SECTION 2 · STYLE MANIPULATION ────────────────── -->
+  <section class="lab-section alt-bg" id="style-lab">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2>Style Manipulation</h2>
+      <p>Dynamically alter CSS properties, classes, and computed styles.</p>
+    </div>
+
+    <div class="card-grid">
+
+      <!-- Color Picker -->
+      <div class="lab-card">
+        <div class="lab-card-header"><span class="lab-tag">Inline Style &amp; classList</span></div>
+        <div class="lab-card-body">
+          <div class="style-box" id="styleBox">
+            <span>Style Me!</span>
+          </div>
+          <div class="color-palette">
+            <button class="swatch" style="--c:#6c63ff" onclick="applyColor('#6c63ff','Purple')"></button>
+            <button class="swatch" style="--c:#f43f5e" onclick="applyColor('#f43f5e','Rose')"></button>
+            <button class="swatch" style="--c:#10b981" onclick="applyColor('#10b981','Emerald')"></button>
+            <button class="swatch" style="--c:#f59e0b" onclick="applyColor('#f59e0b','Amber')"></button>
+            <button class="swatch" style="--c:#38bdf8" onclick="applyColor('#38bdf8','Sky')"></button>
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-sm" onclick="toggleRound()">Toggle Rounded</button>
+            <button class="btn btn-sm btn-ghost" onclick="resetStyle()">Reset</button>
+          </div>
+          <div class="code-snippet" id="styleSnippet"><code>element.style.background = '#6c63ff';</code></div>
+        </div>
+      </div>
+
+      <!-- Font Size Slider -->
+      <div class="lab-card">
+        <div class="lab-card-header"><span class="lab-tag">Dynamic Typography</span></div>
+        <div class="lab-card-body">
+          <div class="font-demo" id="fontDemo">The quick brown fox jumps over the lazy dog.</div>
+          <div class="slider-row">
+            <label>Font Size: <strong id="fontSizeVal">18px</strong></label>
+            <input type="range" min="10" max="48" value="18" class="lab-slider" id="fontSlider"
+              oninput="changeFontSize(this.value)" />
+          </div>
+          <div class="slider-row">
+            <label>Letter Spacing: <strong id="spacingVal">0px</strong></label>
+            <input type="range" min="0" max="10" value="0" class="lab-slider" id="spacingSlider"
+              oninput="changeSpacing(this.value)" />
+          </div>
+          <div class="btn-group">
+            <button class="btn btn-sm" onclick="setFont('bold')">Bold</button>
+            <button class="btn btn-sm btn-accent" onclick="setFont('italic')">Italic</button>
+            <button class="btn btn-sm btn-ghost" onclick="setFont('normal')">Normal</button>
+          </div>
+          <div class="code-snippet"><code>element.style.fontSize = value + 'px';</code></div>
+        </div>
+      </div>
+
+      <!-- Class Toggle Animator -->
+      <div class="lab-card">
+        <div class="lab-card-header"><span class="lab-tag">CSS Class Animations</span></div>
+        <div class="lab-card-body">
+          <div class="anim-box" id="animBox">
+            <div class="anim-icon">✨</div>
+            <p>Ready to animate</p>
+          </div>
+          <div class="btn-group wrap">
+            <button class="btn btn-sm" onclick="animate('bounce')">Bounce</button>
+            <button class="btn btn-sm btn-accent" onclick="animate('spin')">Spin</button>
+            <button class="btn btn-sm btn-success" onclick="animate('pulse')">Pulse</button>
+            <button class="btn btn-sm btn-danger" onclick="animate('shake')">Shake</button>
+            <button class="btn btn-sm btn-ghost" onclick="animate('none')">Reset</button>
+          </div>
+          <div class="code-snippet"><code>element.classList.add('bounce');</code></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── SECTION 3 · VISIBILITY ─────────────────────────── -->
+  <section class="lab-section" id="visibility-lab">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2>Visibility Control</h2>
+      <p>Show, hide, and toggle elements using display, opacity, and class toggling.</p>
+    </div>
+
+    <div class="card-grid two-col">
+
+      <!-- Show / Hide / Toggle -->
+      <div class="lab-card">
+        <div class="lab-card-header"><span class="lab-tag">display &amp; visibility</span></div>
+        <div class="lab-card-body">
+          <div class="visibility-panel" id="visPanel">
+            <div class="vis-item" id="visBox1">📦 Element A (display)</div>
+            <div class="vis-item opaque" id="visBox2">🌊 Element B (opacity)</div>
+            <div class="vis-item" id="visBox3">👁️ Element C (visibility)</div>
+          </div>
+          <div class="vis-controls">
+            <div class="vis-row">
+              <span>Element A</span>
+              <button class="btn btn-xs" onclick="toggleDisplay('visBox1')">Toggle display</button>
+            </div>
+            <div class="vis-row">
+              <span>Element B</span>
+              <button class="btn btn-xs btn-accent" onclick="toggleOpacity('visBox2')">Toggle opacity</button>
+            </div>
+            <div class="vis-row">
+              <span>Element C</span>
+              <button class="btn btn-xs btn-success" onclick="toggleVisibility('visBox3')">Toggle visibility</button>
+            </div>
+          </div>
+          <div class="code-snippet"><code>element.style.display = 'none';</code></div>
+        </div>
+      </div>
+
+      <!-- Modal Demo -->
+      <div class="lab-card">
+        <div class="lab-card-header"><span class="lab-tag">Modal / Overlay Pattern</span></div>
+        <div class="lab-card-body center-body">
+          <div class="modal-preview">
+            <p>A common real-world use of visibility manipulation is the modal dialog.</p>
+          </div>
+          <button class="btn btn-primary" onclick="openModal()">Open Modal</button>
+          <div class="code-snippet"><code>modal.classList.add('active');</code></div>
+        </div>
+      </div>
+
+      <!-- Accordion -->
+      <div class="lab-card full-width">
+        <div class="lab-card-header"><span class="lab-tag">Accordion — Toggling Height &amp; Content</span></div>
+        <div class="lab-card-body">
+          <div class="accordion" id="accordion">
+            <div class="acc-item">
+              <button class="acc-header" onclick="toggleAccordion(this)">
+                <span>What is the DOM?</span><span class="acc-arrow">›</span>
+              </button>
+              <div class="acc-body">
+                <p>The Document Object Model (DOM) is a programming interface for web documents. It represents the page so that programs can change the document structure, style, and content.</p>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-header" onclick="toggleAccordion(this)">
+                <span>Why manipulate the DOM?</span><span class="acc-arrow">›</span>
+              </button>
+              <div class="acc-body">
+                <p>DOM manipulation lets you create interactive, dynamic web pages without reloading — updating content, responding to user events, and building rich UI experiences entirely in the browser.</p>
+              </div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-header" onclick="toggleAccordion(this)">
+                <span>Key DOM Methods</span><span class="acc-arrow">›</span>
+              </button>
+              <div class="acc-body">
+                <p><code>getElementById</code>, <code>querySelector</code>, <code>textContent</code>, <code>innerHTML</code>, <code>style</code>, <code>classList.add/remove/toggle</code>, <code>addEventListener</code> — these are the building blocks of DOM manipulation.</p>
+              </div>
+            </div>
+          </div>
+          <div class="code-snippet"><code>panel.style.maxHeight = panel.scrollHeight + 'px';</code></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── SECTION 4 · EVENTS ─────────────────────────────── -->
+  <section class="lab-section alt-bg" id="event-lab">
+    <div class="section-header">
+      <span class="section-number">04</span>
+      <h2>Event-Driven Interactions</h2>
+      <p>Attach and manage event listeners — the foundation of interactive UIs.</p>
+    </div>
+
+    <div class="card-grid two-col">
+
+      <!-- Mouse Tracker -->
+      <div class="lab-card">
+        <div class="lab-card-header"><span class="lab-tag">Mouse &amp; Keyboard Events</span></div>
+        <div class="lab-card-body">
+          <div class="tracker-zone" id="trackerZone"
+            onmousemove="trackMouse(event)"
+            onmouseleave="resetTracker()"
+            onclick="clickSpark(event)">
+            <div class="tracker-cursor" id="trackerCursor"></div>
+            <p class="tracker-tip">Move your mouse here</p>
+            <div class="tracker-coords" id="trackerCoords">X: — Y: —</div>
+          </div>
+          <div class="key-display">
+            <label>Last key pressed:</label>
+            <div class="key-badge" id="keyBadge">—</div>
+          </div>
+          <div class="code-snippet"><code>zone.addEventListener('mousemove', e => track(e));</code></div>
+        </div>
+      </div>
+
+      <!-- To-Do List (createElement) -->
+      <div class="lab-card">
+        <div class="lab-card-header"><span class="lab-tag">createElement &amp; appendChild</span></div>
+        <div class="lab-card-body">
+          <div class="todo-input-row">
+            <input type="text" id="todoInput" class="lab-input" placeholder="Add a task…"
+              onkeydown="if(event.key==='Enter') addTodo()" />
+            <button class="btn btn-primary btn-sm" onclick="addTodo()">Add</button>
+          </div>
+          <ul class="todo-list" id="todoList"></ul>
+          <p class="todo-empty" id="todoEmpty">No tasks yet. Add one above!</p>
+          <div class="code-snippet"><code>list.appendChild(document.createElement('li'));</code></div>
+        </div>
+      </div>
+
+      <!-- Event Logger -->
+      <div class="lab-card full-width">
+        <div class="lab-card-header">
+          <span class="lab-tag">Event Logger</span>
+          <button class="btn btn-xs btn-ghost" onclick="clearLog()">Clear</button>
+        </div>
+        <div class="lab-card-body">
+          <div class="event-buttons">
+            <button class="btn btn-sm btn-primary" id="evBtn1">Click Me</button>
+            <button class="btn btn-sm btn-accent"
+              onmouseenter="logEvent('mouseenter','#evBtn2')"
+              onmouseleave="logEvent('mouseleave','#evBtn2')"
+              id="evBtn2">Hover Me</button>
+            <button class="btn btn-sm btn-success" ondblclick="logEvent('dblclick','#evBtn3')" id="evBtn3">Double-Click</button>
+            <input type="text" class="lab-input short" id="evInput"
+              onfocus="logEvent('focus','#evInput')"
+              onblur="logEvent('blur','#evInput')"
+              onkeyup="logEvent('keyup ['+event.key+']','#evInput')"
+              placeholder="Focus / Type" />
+          </div>
+          <div class="event-log" id="eventLog">
+            <div class="log-placeholder">Events will appear here...</div>
+          </div>
+          <div class="code-snippet"><code>element.addEventListener('click', handler);</code></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="logo">
+        <span class="logo-icon">&#9670;</span>
+        <span class="logo-text">DOM<span class="accent">Craft</span></span>
+      </div>
+      <p class="footer-sub"> DOM P4 JavaScript Basics &amp; By Yuvaraj </p>
+    </div>
+  </footer>
+
+  <!-- ── MODAL ───────────────────────────────────────────── -->
+  <div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal-box" id="modalBox">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-icon">🎉</div>
+      <h3>Modal Dialog</h3>
+      <p>This modal was displayed by toggling the <code>active</code> CSS class on an overlay element — a common DOM visibility pattern.</p>
+      <div class="modal-code">
+        <pre><code>// Open
+document.getElementById('modalOverlay')
+  .classList.add('active');
+
+// Close
+overlay.classList.remove('active');</code></pre>
+      </div>
+      <button class="btn btn-primary" onclick="closeModal()">Got it!</button>
+    </div>
+  </div>
+
+  <!-- ── SPARK CANVAS ────────────────────────────────────── -->
+  <canvas id="sparkCanvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>

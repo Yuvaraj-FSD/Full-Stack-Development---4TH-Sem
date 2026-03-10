@@ -1,0 +1,175 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body.light {
+  --bg: #ffffff;
+  --text: #000;
+  --card: #f9f9f9;
+  --border: #ddd;
+}
+
+body.dark {
+  --bg: #181818;
+  --text: #fff;
+  --card: #242424;
+  --border: #333;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* TOP BAR */
+.topbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  z-index: 100;
+}
+
+.logo {
+  color: red;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.search {
+  display: flex;
+}
+
+.search input {
+  width: 320px;
+  padding: 6px;
+}
+
+.search button {
+  padding: 6px 12px;
+}
+
+.avatar {
+  width: 32px;
+  border-radius: 50%;
+}
+
+/* LAYOUT */
+.layout {
+  display: flex;
+  margin-top: 56px;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  padding: 12px;
+  border-right: 1px solid var(--border);
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sidebar a:hover,
+.sidebar .active {
+  background: var(--card);
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.video-card {
+  cursor: pointer;
+    width: 300px;
+
+}
+
+.video-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+}
+
+
+
+
+.video-meta {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.video-meta img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.video-meta h3 {
+  font-size: 14px;
+}
+
+.video-meta p,
+.video-meta span {
+  font-size: 12px;
+  color: gray;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  .search input {
+    width: 160px;
+  }
+}
+
+.srch {
+    margin-left: 250px;
+}
+
+.mic {
+    border-radius: 200px;
+    border-style: solid;
+    border-color: #000;
+    margin-left:10px ;
+    margin-right:10px ;
+    padding: 7px;
+    border-width: 1px   
+}
+
+
+.crt {
+    border-radius: 80px;
+    border-style: solid;
+    border-width: 1px;
+    
+}
+
+
+.wth {
+    width: 700px;
+}

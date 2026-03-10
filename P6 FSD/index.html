@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client-Side Form Validation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #0f0f1a;
+            --surface: #1a1a2e;
+            --card: #16213e;
+            --accent: #7c3aed;
+            --accent2: #06b6d4;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+            --text: #e2e8f0;
+            --muted: #94a3b8;
+            --border: #2d3748;
+            --input-bg: #0f172a;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            background-image:
+                radial-gradient(ellipse at 20% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .form-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 560px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #7c3aed, #06b6d4);
+        }
+
+        .form-section-title {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent2);
+            margin-bottom: 20px;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 28px 0;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text);
+            margin-bottom: 7px;
+        }
+
+        label span.req {
+            color: var(--error);
+            margin-left: 3px;
+        }
+
+        .input-wrap {
+            position: relative;
+        }
+
+        .input-wrap .icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            pointer-events: none;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+
+        .input-wrap.has-icon input,
+        .input-wrap.has-icon select {
+            padding-left: 40px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.93rem;
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.2);
+        }
+
+        input.valid {
+            border-color: var(--success);
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
+        }
+
+        input.invalid,
+        select.invalid,
+        textarea.invalid {
+            border-color: var(--error);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+        }
+
+        .status-icon {
+            position: absolute;
+            right: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            display: none;
+            pointer-events: none;
+        }
+
+        .status-icon.show {
+            display: block;
+        }
+
+        .status-icon.ok {
+            color: var(--success);
+        }
+
+        .status-icon.err {
+            color: var(--error);
+        }
+
+        .error-msg {
+            display: none;
+            margin-top: 6px;
+            font-size: 0.78rem;
+            color: var(--error);
+            align-items: center;
+            gap: 5px;
+            animation: slideDown 0.2s ease;
+        }
+
+        .error-msg.show {
+            display: flex;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hint {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        /* Password strength */
+        .strength-bar {
+            display: flex;
+            gap: 5px;
+            margin-top: 8px;
+        }
+
+        .strength-bar .seg {
+            flex: 1;
+            height: 4px;
+            border-radius: 99px;
+            background: var(--border);
+            transition: background 0.3s;
+        }
+
+        .strength-label {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        /* Gender radio */
+        .radio-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text);
+            padding: 10px 18px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            transition: border-color 0.2s, background 0.2s;
+            user-select: none;
+        }
+
+        .radio-option input[type="radio"] {
+            width: auto;
+            accent-color: var(--accent);
+        }
+
+        .radio-option:has(input:checked) {
+            border-color: var(--accent);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        /* Checkbox */
+        .checkbox-wrap {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-wrap input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+            accent-color: var(--accent);
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-wrap span {
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .checkbox-wrap span a {
+            color: var(--accent2);
+            text-decoration: none;
+        }
+
+        /* Submit button */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #7c3aed, #06b6d4);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+            margin-top: 8px;
+            letter-spacing: 0.02em;
+            box-shadow: 0 6px 24px rgba(124, 58, 237, 0.35);
+        }
+
+        .btn-submit:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.45);
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* Success overlay */
+        #success-banner {
+            display: none;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.1));
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            border-radius: 14px;
+            padding: 20px 24px;
+            text-align: center;
+            margin-top: 20px;
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        #success-banner.show {
+            display: block;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        #success-banner .check {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        #success-banner h3 {
+            color: var(--success);
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+
+        #success-banner p {
+            color: var(--muted);
+            font-size: 0.87rem;
+        }
+
+        /* Progress */
+        .form-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .progress-bar-bg {
+            flex: 1;
+            height: 5px;
+            background: var(--border);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #06b6d4);
+            border-radius: 99px;
+            transition: width 0.4s ease;
+            width: 0%;
+        }
+
+        .progress-label {
+            font-size: 0.75rem;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        select option {
+            background: var(--input-bg);
+            color: var(--text);
+        }
+
+        @media (max-width: 500px) {
+            .form-card {
+                padding: 28px 20px;
+            }
+
+            header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>📋 Registration Form</h1>
+        <p>Client-Side Form Validation using JavaScript</p>
+    </header>
+
+    <div class="form-card">
+        <!-- Progress -->
+        <div class="form-progress">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressFill"></div>
+            </div>
+            <span class="progress-label" id="progressLabel">0 / 8 fields</span>
+        </div>
+
+        <form id="regForm" novalidate autocomplete="off">
+
+            <!-- Personal Info -->
+            <p class="form-section-title">👤 Personal Information</p>
+
+            <!-- Full Name -->
+            <div class="field">
+                <label for="fullname">Full Name <span class="req">*</span></label>
+                <div class="input-wrap has-icon">
+                    <span class="icon">✏️</span>
+                    <input type="text" id="fullname" placeholder="Yuvaraj" />
+                    <span class="status-icon" id="fullname-icon"></span>
+                </div>
+                <span class="error-msg" id="fullname-error">⚠️ Full name must be at least 3 characters and letters
+                    only.</span>
+            </div>
+
+            <!-- Email -->
+            <div class="field">
+                <label for="email">Email Address <span class="req">*</span></label>
+                <div class="input-wrap has-icon">
+                    <span class="icon">📧</span>
+                    <input type="email" id="email" placeholder="fsd@example.com" />
+                    <span class="status-icon" id="email-icon"></span>
+                </div>
+                <span class="error-msg" id="email-error">⚠️ Please enter a valid email address.</span>
+            </div>
+
+            <!-- Phone -->
+            <div class="field">
+                <label for="phone">Phone Number <span class="req">*</span></label>
+                <div class="input-wrap has-icon">
+                    <span class="icon">📞</span>
+                    <input type="tel" id="phone" placeholder="10-digit number" maxlength="10" />
+                    <span class="status-icon" id="phone-icon"></span>
+                </div>
+                <span class="error-msg" id="phone-error">⚠️ Enter a valid 10-digit phone number.</span>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="field">
+                <label for="dob">Date of Birth <span class="req">*</span></label>
+                <div class="input-wrap">
+                    <input type="date" id="dob" />
+                    <span class="status-icon" id="dob-icon"></span>
+                </div>
+                <span class="error-msg" id="dob-error">⚠️ You must be at least 16 years old.</span>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- Account Info -->
+            <p class="form-section-title">🔐 Account Information</p>
+
+            <!-- Username -->
+            <div class="field">
+                <label for="username">Username <span class="req">*</span></label>
+                <div class="input-wrap has-icon">
+                    <span class="icon">🧑‍💻</span>
+                    <input type="text" id="username" placeholder="3–15 chars, letters/numbers/underscore" />
+                    <span class="status-icon" id="username-icon"></span>
+                </div>
+                <span class="error-msg" id="username-error">⚠️ Username: 3–15 chars, letters, numbers, or _ only.</span>
+            </div>
+
+            <!-- Password -->
+            <div class="field">
+                <label for="password">Password <span class="req">*</span></label>
+                <div class="input-wrap has-icon">
+                    <span class="icon">🔒</span>
+                    <input type="password" id="password" placeholder="Min 8 characters" />
+                    <span class="status-icon" id="password-icon"></span>
+                </div>
+                <div class="strength-bar">
+                    <div class="seg" id="s1"></div>
+                    <div class="seg" id="s2"></div>
+                    <div class="seg" id="s3"></div>
+                    <div class="seg" id="s4"></div>
+                </div>
+                <div class="strength-label" id="strength-label" style="color:var(--muted)"></div>
+                <span class="error-msg" id="password-error">⚠️ Password must be at least 8 characters with a number and
+                    special character.</span>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="field">
+                <label for="confirm">Confirm Password <span class="req">*</span></label>
+                <div class="input-wrap has-icon">
+                    <span class="icon">🔁</span>
+                    <input type="password" id="confirm" placeholder="Re-enter your password" />
+                    <span class="status-icon" id="confirm-icon"></span>
+                </div>
+                <span class="error-msg" id="confirm-error">⚠️ Passwords do not match.</span>
+            </div>
+
+            <hr class="divider" />
+
+            <!-- Extra Info -->
+            <p class="form-section-title">📝 Additional Details</p>
+
+            <!-- Course -->
+            <div class="field">
+                <label for="course">Course / Department <span class="req">*</span></label>
+                <div class="input-wrap">
+                    <select id="course">
+                        <option value="">-- Select your course --</option>
+                        <option value="cs">Computer Science</option>
+                        <option value="it">Information Technology</option>
+                        <option value="ec">Electronics & Communication</option>
+                        <option value="me">Mechanical Engineering</option>
+                        <option value="ce">Civil Engineering</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <span class="status-icon" id="course-icon"></span>
+                </div>
+                <span class="error-msg" id="course-error">⚠️ Please select your course.</span>
+            </div>
+
+            <!-- Gender -->
+            <div class="field">
+                <label>Gender <span class="req">*</span></label>
+                <div class="radio-group" id="gender-group">
+                    <label class="radio-option"><input type="radio" name="gender" value="male" /> Male</label>
+                    <label class="radio-option"><input type="radio" name="gender" value="female" /> Female</label>
+                    <label class="radio-option"><input type="radio" name="gender" value="other" /> Other</label>
+                </div>
+                <span class="error-msg" id="gender-error">⚠️ Please select your gender.</span>
+            </div>
+
+            <!-- Bio -->
+            <div class="field">
+                <label for="bio">Short Bio <span style="color:var(--muted);font-weight:400;">(optional)</span></label>
+                <textarea id="bio" placeholder="Tell us a little about yourself (max 300 chars)"
+                    maxlength="300"></textarea>
+                <div class="hint" id="bio-count">0 / 300 characters</div>
+            </div>
+
+            <!-- Terms -->
+            <div class="field">
+                <label class="checkbox-wrap">
+                    <input type="checkbox" id="terms" />
+                    <span>I agree to the <a href="#">Terms &amp; Conditions</a> and <a href="#">Privacy
+                            Policy</a>.</span>
+                </label>
+                <span class="error-msg" id="terms-error">⚠️ You must agree to the terms.</span>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">🚀 Register Now</button>
+        </form>
+
+        <!-- Success banner -->
+        <div id="success-banner">
+            <span class="check">🎉</span>
+            <h3>Registration Successful!</h3>
+            <p>All fields validated. Your form was submitted successfully.</p>
+        </div>
+    </div>
+
+    <script>
+        // ─── Helpers ───────────────────────────────────────────────────────────────
+        function showError(id, show) {
+            const el = document.getElementById(id + '-error');
+            if (el) el.classList.toggle('show', show);
+        }
+
+        function markInput(id, state) {
+            // state: 'valid' | 'invalid' | ''
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.remove('valid', 'invalid');
+            if (state) el.classList.add(state);
+
+            const icon = document.getElementById(id + '-icon');
+            if (icon) {
+                icon.classList.remove('show', 'ok', 'err');
+                if (state === 'valid') {
+                    icon.textContent = '✔';
+                    icon.classList.add('show', 'ok');
+                } else if (state === 'invalid') {
+                    icon.textContent = '✖';
+                    icon.classList.add('show', 'err');
+                }
+            }
+        }
+
+        // ─── Validators ────────────────────────────────────────────────────────────
+        function validateFullName() {
+            const val = document.getElementById('fullname').value.trim();
+            const ok = /^[A-Za-z\s]{3,}$/.test(val);
+            markInput('fullname', ok ? 'valid' : (val ? 'invalid' : ''));
+            showError('fullname', !ok && val !== '');
+            return ok;
+        }
+
+        function validateEmail() {
+            const val = document.getElementById('email').value.trim();
+            const ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val);
+            markInput('email', ok ? 'valid' : (val ? 'invalid' : ''));
+            showError('email', !ok && val !== '');
+            return ok;
+        }
+
+        function validatePhone() {
+            const val = document.getElementById('phone').value.trim();
+            const ok = /^[6-9]\d{9}$/.test(val);
+            markInput('phone', ok ? 'valid' : (val ? 'invalid' : ''));
+            showError('phone', !ok && val !== '');
+            return ok;
+        }
+
+        function validateDob() {
+            const val = document.getElementById('dob').value;
+            if (!val) { markInput('dob', ''); showError('dob', false); return false; }
+            const dob = new Date(val);
+            const today = new Date();
+            const age = (today - dob) / (1000 * 60 * 60 * 24 * 365.25);
+            const ok = age >= 16;
+            markInput('dob', ok ? 'valid' : 'invalid');
+            showError('dob', !ok);
+            return ok;
+        }
+
+        function validateUsername() {
+            const val = document.getElementById('username').value.trim();
+            const ok = /^[a-zA-Z0-9_]{3,15}$/.test(val);
+            markInput('username', ok ? 'valid' : (val ? 'invalid' : ''));
+            showError('username', !ok && val !== '');
+            return ok;
+        }
+
+        function getPasswordStrength(pw) {
+            let score = 0;
+            if (pw.length >= 8) score++;
+            if (/[A-Z]/.test(pw)) score++;
+            if (/\d/.test(pw)) score++;
+            if (/[^A-Za-z0-9]/.test(pw)) score++;
+            return score;
+        }
+
+        function updateStrengthBar(pw) {
+            const score = getPasswordStrength(pw);
+            const colors = ['', '#ef4444', '#f59e0b', '#06b6d4', '#10b981'];
+            const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+            for (let i = 1; i <= 4; i++) {
+                document.getElementById('s' + i).style.background =
+                    i <= score ? colors[score] : 'var(--border)';
+            }
+            const lbl = document.getElementById('strength-label');
+            lbl.textContent = pw ? labels[score] : '';
+            lbl.style.color = colors[score] || 'var(--muted)';
+        }
+
+        function validatePassword() {
+            const val = document.getElementById('password').value;
+            updateStrengthBar(val);
+            const ok = /^(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(val);
+            markInput('password', ok ? 'valid' : (val ? 'invalid' : ''));
+            showError('password', !ok && val !== '');
+            // re-check confirm if already typed
+            if (document.getElementById('confirm').value) validateConfirm();
+            return ok;
+        }
+
+        function validateConfirm() {
+            const pw = document.getElementById('password').value;
+            const cf = document.getElementById('confirm').value;
+            const ok = cf !== '' && pw === cf;
+            markInput('confirm', ok ? 'valid' : (cf ? 'invalid' : ''));
+            showError('confirm', !ok && cf !== '');
+            return ok;
+        }
+
+        function validateCourse() {
+            const val = document.getElementById('course').value;
+            const ok = val !== '';
+            const el = document.getElementById('course');
+            el.classList.toggle('invalid', !ok);
+            el.classList.toggle('valid', ok);
+            showError('course', !ok);
+            return ok;
+        }
+
+        function validateGender() {
+            const sel = document.querySelector('input[name="gender"]:checked');
+            const ok = sel !== null;
+            showError('gender', !ok);
+            return ok;
+        }
+
+        function validateTerms() {
+            const ok = document.getElementById('terms').checked;
+            showError('terms', !ok);
+            return ok;
+        }
+
+        // ─── Live listeners ────────────────────────────────────────────────────────
+        document.getElementById('fullname').addEventListener('input', () => { validateFullName(); updateProgress(); });
+        document.getElementById('email').addEventListener('input', () => { validateEmail(); updateProgress(); });
+        document.getElementById('phone').addEventListener('input', () => { validatePhone(); updateProgress(); });
+        document.getElementById('dob').addEventListener('change', () => { validateDob(); updateProgress(); });
+        document.getElementById('username').addEventListener('input', () => { validateUsername(); updateProgress(); });
+        document.getElementById('password').addEventListener('input', () => { validatePassword(); updateProgress(); });
+        document.getElementById('confirm').addEventListener('input', () => { validateConfirm(); updateProgress(); });
+        document.getElementById('course').addEventListener('change', () => { validateCourse(); updateProgress(); });
+        document.querySelectorAll('input[name="gender"]').forEach(r => r.addEventListener('change', () => { validateGender(); updateProgress(); }));
+        document.getElementById('terms').addEventListener('change', () => { validateTerms(); updateProgress(); });
+
+        // Bio counter
+        document.getElementById('bio').addEventListener('input', function () {
+            document.getElementById('bio-count').textContent = this.value.length + ' / 300 characters';
+        });
+
+        // ─── Progress Bar ──────────────────────────────────────────────────────────
+        const validators = [validateFullName, validateEmail, validatePhone, validateDob,
+            validateUsername, validatePassword, validateConfirm, validateCourse];
+
+        function updateProgress() {
+            let done = 0;
+            validators.forEach(fn => { try { if (fn()) done++; } catch (e) { } });
+            const total = validators.length;
+            const pct = Math.round((done / total) * 100);
+            document.getElementById('progressFill').style.width = pct + '%';
+            document.getElementById('progressLabel').textContent = done + ' / ' + total + ' fields';
+        }
+
+        // ─── Submit ─────────────────────────────────────────────────────────────────
+        document.getElementById('regForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const results = [
+                validateFullName(),
+                validateEmail(),
+                validatePhone(),
+                validateDob(),
+                validateUsername(),
+                validatePassword(),
+                validateConfirm(),
+                validateCourse(),
+                validateGender(),
+                validateTerms()
+            ];
+
+            if (results.every(Boolean)) {
+                this.style.display = 'none';
+                document.getElementById('success-banner').classList.add('show');
+            } else {
+                // scroll to first error
+                const firstErr = document.querySelector('.error-msg.show');
+                if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
+</body>
+
+</html>

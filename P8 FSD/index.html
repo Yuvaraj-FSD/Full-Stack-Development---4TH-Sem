@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>P8</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <header>
+    <div class="header-inner">
+      <h1>ES6 JavaScript Features</h1>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#arrow">Arrow Functions</a>
+    <a href="#destructuring">Destructuring</a>
+    <a href="#template">Template Literals</a>
+    <a href="#promises">Promises</a>
+    <a href="#async">Async / Await</a>
+    <a href="#modules">Modules</a>
+  </nav>
+
+  <main>
+
+    <!-- Section 1: Arrow Functions -->
+    <section id="arrow" class="card">
+      <h2><span class="tag">01</span> Arrow Functions</h2>
+      <p>Arrow functions are a shorter way to write functions. They also don't have their own <code>this</code>.</p>
+
+      <div class="demo-area">
+        <label>Enter some numbers (comma-separated):</label>
+        <input type="text" id="arrow-input" placeholder="e.g. 3, 7, 1, 9, 4" />
+        <div class="btn-row">
+          <button onclick="runArrow()">Run</button>
+        </div>
+        <div class="output" id="arrow-output"></div>
+      </div>
+
+      <pre><code>// Traditional function
+function double(n) { return n * 2; }
+
+// Arrow function — same thing, shorter
+const double = n => n * 2;
+
+// Arrow with filter + map
+const evens = nums.filter(n => n % 2 === 0);
+const doubled = evens.map(n => n * 2);</code></pre>
+    </section>
+
+    <!-- Section 2: Destructuring -->
+    <section id="destructuring" class="card">
+      <h2><span class="tag">02</span> Destructuring</h2>
+      <p>Destructuring lets you unpack values from arrays or properties from objects into separate variables.</p>
+
+      <div class="demo-area">
+        <label>Enter your name and age:</label>
+        <div class="inline-inputs">
+          <input type="text" id="dest-name" placeholder="Name" />
+          <input type="number" id="dest-age" placeholder="Age" />
+          <input type="text" id="dest-city" placeholder="City" />
+        </div>
+        <div class="btn-row">
+          <button onclick="runDestruct()">Run</button>
+        </div>
+        <div class="output" id="dest-output"></div>
+      </div>
+
+      <pre><code>// Object destructuring
+const { name, age, city } = person;
+
+// Array destructuring
+const [first, second, ...rest] = myArray;
+
+// With default values
+const { role = "guest" } = user;</code></pre>
+    </section>
+
+    <!-- Section 3: Template Literals -->
+    <section id="template" class="card">
+      <h2><span class="tag">03</span> Template Literals</h2>
+      <p>Template literals use backticks and <code>${ }</code> to embed expressions directly inside strings.</p>
+
+      <div class="demo-area">
+        <label>Enter your name:</label>
+        <input type="text" id="tpl-name" placeholder="e.g. Ravi" />
+        <label>Enter a subject you like:</label>
+        <input type="text" id="tpl-subject" placeholder="e.g. JavaScript" />
+        <div class="btn-row">
+          <button onclick="runTemplate()">Run</button>
+        </div>
+        <div class="output" id="tpl-output"></div>
+      </div>
+
+      <pre><code>// Old way (messy)
+"Hello, " + name + "! You like " + subject + ".";
+
+// Template literal (clean)
+`Hello, ${name}! You like ${subject}.`
+
+// Multi-line without \n
+`Line 1
+ Line 2`</code></pre>
+    </section>
+
+    <!-- Section 4: Promises -->
+    <section id="promises" class="card">
+      <h2><span class="tag">04</span> Promises</h2>
+      <p>A Promise represents an operation that hasn't completed yet. It can resolve (success) or reject (failure).</p>
+
+      <div class="demo-area">
+        <label>Simulate a coin flip — will it resolve or reject?</label>
+        <div class="btn-row">
+          <button onclick="runPromise()">Flip Coin</button>
+        </div>
+        <div class="output" id="promise-output">Click the button to try...</div>
+      </div>
+
+      <pre><code>const flipCoin = new Promise((resolve, reject) => {
+  const heads = Math.random() > 0.5;
+  if (heads) {
+    resolve("Heads! Promise resolved ✓");
+  } else {
+    reject("Tails! Promise rejected ✗");
+  }
+});
+
+flipCoin
+  .then(result => console.log(result))
+  .catch(err => console.error(err));</code></pre>
+    </section>
+
+    <!-- Section 5: Async/Await -->
+    <section id="async" class="card">
+      <h2><span class="tag">05</span> Async / Await</h2>
+      <p>Async/await is syntactic sugar over Promises — it makes asynchronous code look and feel synchronous.</p>
+
+      <div class="demo-area">
+        <label>Fetch a random joke from the internet:</label>
+        <div class="btn-row">
+          <button onclick="runAsync()">Fetch Joke</button>
+        </div>
+        <div class="output" id="async-output">Click to fetch a joke...</div>
+      </div>
+
+      <pre><code>async function fetchJoke() {
+  try {
+    const res = await fetch("https://official-joke-api.appspot.com/jokes/random");
+    const data = await res.json();
+    const { setup, punchline } = data; // destructuring too!
+    return `${setup} ... ${punchline}`;
+  } catch (err) {
+    return "Oops, couldn't fetch a joke.";
+  }
+}</code></pre>
+    </section>
+
+    <!-- Section 6: Modules -->
+    <section id="modules" class="card">
+      <h2><span class="tag">06</span> Modules</h2>
+      <p>ES6 modules let you split your code into separate files using <code>import</code> and <code>export</code>.</p>
+
+      <div class="demo-area">
+        <label>Pick two numbers and an operation:</label>
+        <div class="inline-inputs">
+          <input type="number" id="mod-a" placeholder="Num A" value="10" />
+          <select id="mod-op">
+            <option value="add">Add</option>
+            <option value="subtract">Subtract</option>
+            <option value="multiply">Multiply</option>
+            <option value="divide">Divide</option>
+          </select>
+          <input type="number" id="mod-b" placeholder="Num B" value="3" />
+        </div>
+        <div class="btn-row">
+          <button onclick="runModule()">Calculate</button>
+        </div>
+        <div class="output" id="mod-output"></div>
+      </div>
+
+      <pre><code>// mathUtils.js — a module
+export const add = (a, b) => a + b;
+export const subtract = (a, b) => a - b;
+export const multiply = (a, b) => a * b;
+export const divide = (a, b) => b !== 0 ? a / b : "Can't divide by zero";
+
+// main.js — importing from that module
+import { add, subtract, multiply, divide } from "./mathUtils.js";</code></pre>
+    </section>
+
+  </main>
+
+  <footer>
+    <p class="footer-note">By Yuvaraj</p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+
+</html>
